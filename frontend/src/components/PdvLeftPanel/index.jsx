@@ -62,15 +62,28 @@ export default function PdvLeftPanel({
             <Button onClick={buscarClientePorCpf}>🔍</Button>
           </div>
         ) : (
-          <SelectField
-            id="cliente"
-            value={clienteSelectId}
-            onChange={(e) => selecionarClientePorNome(e.target.value)}
-            options={clientes.map((c) => ({
-              value: c._id,
-              label: `${c.nome} (${c.cpf || 'sem CPF'})`,
-            }))}
-          />
+          <ScrollableCard>
+            <div className="pdv-left-panel__clients-list">
+              {clientes.length > 0 ? (
+                clientes.map((c) => (
+                  <button
+                    key={c._id}
+                    className={`pdv-left-panel__client-item ${clienteSelecionado?._id === c._id ? 'selected' : ''}`}
+                    onClick={() => selecionarClientePorNome(c._id)}
+                  >
+                    <div style={{ fontWeight: 600 }}>{c.nome}</div>
+                    <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>
+                      {c.cpf || 'sem CPF'}
+                    </div>
+                  </button>
+                ))
+              ) : (
+                <p style={{ textAlign: 'center', color: 'var(--color-text)' }}>
+                  Nenhum cliente cadastrado
+                </p>
+              )}
+            </div>
+          </ScrollableCard>
         )}
 
         {clienteSelecionado && (

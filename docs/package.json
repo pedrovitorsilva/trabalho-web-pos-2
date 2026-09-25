@@ -1,0 +1,16 @@
+{
+  "name": "miguel-docs",
+  "version": "1.0.0",
+  "description": "Documentacao Swagger/OpenAPI das APIs de produtos, pessoas e vendas do Mercadinho Sao Miguel",
+  "private": true,
+  "type": "module",
+  "main": "server.js",
+  "license": "ISC",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "swagger-ui-express": "^5.0.1"
+  }
+}

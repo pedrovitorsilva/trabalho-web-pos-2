@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import {
   listClientes,
+  getPessoaByCpf,
   listFuncionarios,
   getProdutoByBarcode,
   listProdutos,
@@ -196,6 +197,10 @@ export default function Pdv() {
     setPaymentValue('')
   }
 
+  function removerPagamento(index) {
+    setPagamentos((prev) => prev.filter((_, i) => i !== index))
+  }
+
   async function finalizarVenda() {
     if (carrinho.length === 0) {
       setFeedback({
@@ -364,6 +369,7 @@ export default function Pdv() {
           setPaymentValue={setPaymentValue}
           pagamentos={pagamentos}
           onAddPayment={adicionarPagamento}
+          onRemovePayment={removerPagamento}
           onFinalize={finalizarVenda}
         />
       </div>

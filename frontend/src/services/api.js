@@ -39,6 +39,11 @@ export async function listClientes() {
   return data
 }
 
+export async function getPessoaByCpf(cpf) {
+  const { data } = await pessoasApi.get(`/pessoa/cpf/${cpf}`)
+  return data
+}
+
 export async function listFuncionarios() {
   const { data } = await pessoasApi.get('/pessoa/funcionarios')
   return data

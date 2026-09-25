@@ -1,4 +1,5 @@
 import Card from '../Card'
+import ScrollableCard from '../ScrollableCard'
 import SelectField from '../SelectField'
 import FormField from '../FormField'
 import Button from '../Button'
@@ -125,7 +126,7 @@ export default function PdvLeftPanel({
         )}
 
         {showGrade && (
-          <div className="pdv-left-panel__grid">
+          <ScrollableCard className="pdv-left-panel__grid">
             <List
               columns={produtosColumns}
               items={produtos}
@@ -133,7 +134,7 @@ export default function PdvLeftPanel({
               error={null}
               emptyMessage="Nenhum produto cadastrado."
             />
-          </div>
+          </ScrollableCard>
         )}
       </Card>
 

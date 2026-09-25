@@ -5,6 +5,7 @@ import {
   getFuncionarios,
   getPessoa,
   getPessoaPorNomeController,
+  getPessoaPorCpfController,
   postPessoa,
   patchPessoa,
   deletePessoa,
@@ -17,6 +18,7 @@ router.get("/", getPessoas);
 router.get("/clientes", getClientes);
 router.get("/funcionarios", getFuncionarios);
 router.get("/nome/:nome", getPessoaPorNomeController);
+router.get("/cpf/:cpf", getPessoaPorCpfController);
 router.get("/:id", getPessoa);
 router.post("/", postPessoa);
 router.patch("/:id", patchPessoa);

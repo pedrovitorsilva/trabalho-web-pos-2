@@ -22,6 +22,7 @@ export default function PdvRightPanel({
   setPaymentValue,
   pagamentos,
   onAddPayment,
+  onRemovePayment,
   onFinalize,
 }) {
   return (
@@ -84,9 +85,17 @@ export default function PdvRightPanel({
           <div className="pdv-right-panel__payments-list">
             <p className="pdv-right-panel__payments-label">Pagamentos:</p>
             {pagamentos.map((p, i) => (
-              <p key={i} className="pdv-right-panel__payment-item">
-                {p.tipo}: R$ {p.valor.toFixed(2)}
-              </p>
+              <div key={i} className="pdv-right-panel__payment-row">
+                <p className="pdv-right-panel__payment-item">
+                  {p.tipo}: R$ {p.valor.toFixed(2)}
+                </p>
+                <Button
+                  onClick={() => onRemovePayment(i)}
+                  className="pdv-right-panel__payment-remove"
+                >
+                  −
+                </Button>
+              </div>
             ))}
           </div>
         )}

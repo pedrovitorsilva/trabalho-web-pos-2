@@ -2,8 +2,8 @@
   display: flex;
   align-items: center;
   gap: var(--space-lg);
-  background: var(--color-accent);
-  color: var(--color-heading);
+  background: var(--color-primary);
+  color: #FFFFFF;
   padding: var(--space-lg) var(--space-lg);
   border-radius: var(--radius);
   margin-bottom: var(--space-lg);
@@ -23,11 +23,11 @@
   margin: 0;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-heading);
+  color: #FFFFFF;
 }
 
 .banner__subtitle {
   margin: 4px 0 0 0;
   font-size: 0.9rem;
-  color: var(--color-text);
+  color: rgba(255, 255, 255, 0.9);
 }

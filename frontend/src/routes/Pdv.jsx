@@ -8,24 +8,11 @@ import {
   updatePessoaPontos,
 } from '../services/api'
 import Banner from '../components/Banner'
-import Card from '../components/Card'
-import SelectField from '../components/SelectField'
-import FormField from '../components/FormField'
-import EmptyState from '../components/EmptyState'
-import CartItem from '../components/CartItem'
-import Button from '../components/Button'
+import PdvLeftPanel from '../components/PdvLeftPanel'
+import PdvCenterPanel from '../components/PdvCenterPanel'
+import PdvRightPanel from '../components/PdvRightPanel'
 import FeedbackMessage from '../components/FeedbackMessage'
 import Title from '../components/Title'
-import Subtitle from '../components/Subtitle'
-import List from '../components/List'
-import './Pdv.css'
-
-const PAYMENT_METHODS = [
-  { value: 'PIX', label: 'PIX' },
-  { value: 'Dinheiro', label: 'Dinheiro' },
-  { value: 'Débito', label: 'Cartão Débito' },
-  { value: 'Crédito', label: 'Cartão Crédito' },
-]
 
 function calculatePoints(subtotal) {
   const today = new Date()
@@ -55,6 +42,7 @@ export default function Pdv() {
   const [clienteSelecionado, setClienteSelecionado] = useState(null)
   const [operadorId, setOperadorId] = useState('')
   const [cpfSearch, setCpfSearch] = useState('')
+  const [clienteSelectId, setClienteSelectId] = useState('')
   const [codigoBarrasInput, setCodigoBarrasInput] = useState('')
   const [showGrade, setShowGrade] = useState(false)
   const [carrinho, setCarrinho] = useState([])
@@ -91,6 +79,7 @@ export default function Pdv() {
     const cliente = clientes.find((c) => c.cpf === cpfSearch)
     if (cliente) {
       setClienteSelecionado(cliente)
+      setClienteSelectId('')
       setCpfSearch('')
       setFeedback(null)
     } else {
@@ -102,16 +91,39 @@ export default function Pdv() {
     }
   }
 
+  function selecionarClientePorNome(id) {
+    if (!id) {
+      setClienteSelecionado(null)
+      return
+    }
+    const cliente = clientes.find((c) => c._id === id)
+    if (cliente) {
+      setClienteSelecionado(cliente)
+      setCpfSearch('')
+      setFeedback(null)
+    }
+  }
+
   async function buscarPorBarcode(codigo) {
+    if (!codigo || codigo.trim() === '') {
+      setFeedback({
+        type: 'error',
+        message: 'Digite um código de barras.',
+      })
+      return
+    }
     try {
+      console.log('Buscando código de barras:', codigo)
       const produto = await getProdutoByBarcode(codigo)
+      console.log('Produto encontrado:', produto)
       adicionarAoCarrinho(produto)
       setCodigoBarrasInput('')
       setFeedback(null)
-    } catch {
+    } catch (err) {
+      console.error('Erro ao buscar código de barras:', err)
       setFeedback({
         type: 'error',
-        message: 'Produto não encontrado.',
+        message: `Produto não encontrado. Erro: ${err.message || 'Verifique o código e tente novamente.'}`,
       })
     }
   }
@@ -282,13 +294,27 @@ export default function Pdv() {
       key: 'acao',
       header: '',
       render: (p) => (
-        <Button onClick={() => adicionarAoCarrinho(p)}>Adicionar</Button>
+        <button
+          onClick={() => adicionarAoCarrinho(p)}
+          style={{
+            background: 'var(--color-primary)',
+            color: '#FFFFFF',
+            border: 'none',
+            padding: 'var(--space-sm) var(--space-md)',
+            borderRadius: 'var(--radius)',
+            cursor: 'pointer',
+            fontWeight: 700,
+            fontSize: '0.85rem',
+          }}
+        >
+          Adicionar
+        </button>
       ),
     },
   ]
 
   return (
-    <main className="pdv">
+    <main style={{ maxWidth: '1400px', margin: '0 auto', padding: 'var(--space-lg)' }}>
       <Banner
         icon="🛒"
         title="Mercadinho São Miguel"
@@ -297,245 +323,49 @@ export default function Pdv() {
 
       <FeedbackMessage type={feedback?.type} message={feedback?.message} />
 
-      <div className="pdv__grid">
-        {/* Coluna Esquerda */}
-        <div className="pdv__left">
-          <Card>
-            <Subtitle>Cliente (CPF)</Subtitle>
-            <div style={{ display: 'flex', gap: 'var(--space-sm)' }}>
-              <FormField
-                id="cpf"
-                value={cpfSearch}
-                onChange={(e) => setCpfSearch(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && buscarClientePorCpf()}
-                placeholder="CPF"
-              />
-              <Button onClick={buscarClientePorCpf}>🔍</Button>
-            </div>
-            {clienteSelecionado && (
-              <p style={{ margin: '8px 0 0 0', color: 'var(--color-success)' }}>
-                {clienteSelecionado.nome}
-              </p>
-            )}
-          </Card>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 'var(--space-lg)', marginTop: 'var(--space-lg)' }}>
+        <PdvLeftPanel
+          clientes={clientes}
+          funcionarios={funcionarios}
+          clienteSelecionado={clienteSelecionado}
+          cpfSearch={cpfSearch}
+          setCpfSearch={setCpfSearch}
+          buscarClientePorCpf={buscarClientePorCpf}
+          clienteSelectId={clienteSelectId}
+          setClienteSelectId={setClienteSelectId}
+          selecionarClientePorNome={selecionarClientePorNome}
+          operadorId={operadorId}
+          setOperadorId={setOperadorId}
+          showGrade={showGrade}
+          setShowGrade={setShowGrade}
+          codigoBarrasInput={codigoBarrasInput}
+          setCodigoBarrasInput={setCodigoBarrasInput}
+          buscarPorBarcode={buscarPorBarcode}
+          produtos={produtos}
+          produtosColumns={produtosColumns}
+          pontosGanhos={pontosGanhos}
+          getDayRangeLabel={getDayRangeLabel}
+        />
 
-          <Card>
-            <Subtitle>Operador</Subtitle>
-            <SelectField
-              id="operador"
-              value={operadorId}
-              onChange={(e) => setOperadorId(e.target.value)}
-              options={funcionarios.map((f) => ({
-                value: f._id,
-                label: f.nome,
-              }))}
-            />
-          </Card>
+        <PdvCenterPanel
+          carrinho={carrinho}
+          onIncrease={aumentarQuantidade}
+          onDecrease={diminuirQuantidade}
+          onRemove={removerDoCarrinho}
+        />
 
-          <Card>
-            <div style={{ display: 'flex', gap: 'var(--space-sm)' }}>
-              <Button
-                variant={!showGrade ? 'primary' : 'primary'}
-                onClick={() => setShowGrade(false)}
-                style={{
-                  opacity: !showGrade ? 1 : 0.5,
-                }}
-              >
-                📱 Código
-              </Button>
-              <Button
-                variant={showGrade ? 'primary' : 'primary'}
-                onClick={() => setShowGrade(true)}
-                style={{
-                  opacity: showGrade ? 1 : 0.5,
-                }}
-              >
-                📋 Grade
-              </Button>
-            </div>
-
-            {!showGrade && (
-              <>
-                <FormField
-                  id="barcode"
-                  type="text"
-                  value={codigoBarrasInput}
-                  onChange={(e) => setCodigoBarrasInput(e.target.value)}
-                  onKeyDown={(e) =>
-                    e.key === 'Enter' && buscarPorBarcode(codigoBarrasInput)
-                  }
-                  placeholder="Código de Barras"
-                  style={{ marginTop: 'var(--space-md)' }}
-                />
-              </>
-            )}
-
-            {showGrade && (
-              <div style={{ marginTop: 'var(--space-md)' }}>
-                <List
-                  columns={produtosColumns}
-                  items={produtos}
-                  loading={false}
-                  error={null}
-                  emptyMessage="Nenhum produto cadastrado."
-                />
-              </div>
-            )}
-          </Card>
-
-          <Card>
-            <div
-              style={{
-                background: 'var(--color-accent)',
-                padding: 'var(--space-md)',
-                borderRadius: 'var(--radius)',
-              }}
-            >
-              <p
-                style={{
-                  margin: 0,
-                  fontSize: '0.85rem',
-                  color: 'var(--color-text)',
-                }}
-              >
-                Pontos desta Venda
-              </p>
-              <p
-                style={{
-                  margin: '8px 0 0 0',
-                  fontSize: '1.75rem',
-                  fontWeight: 700,
-                  color: '#CC0000',
-                }}
-              >
-                {pontosGanhos.toFixed(2)}
-              </p>
-              <p
-                style={{
-                  margin: '4px 0 0 0',
-                  fontSize: '0.75rem',
-                  color: 'var(--color-heading)',
-                }}
-              >
-                {getDayRangeLabel()}
-              </p>
-            </div>
-          </Card>
-        </div>
-
-        {/* Coluna Centro - Carrinho */}
-        <div className="pdv__center">
-          <Card>
-            <Subtitle>Lista de Produtos</Subtitle>
-            {carrinho.length === 0 ? (
-              <EmptyState icon="🛒" title="Carrinho vazio" />
-            ) : (
-              <div>
-                {carrinho.map((item) => (
-                  <CartItem
-                    key={item.id_produto}
-                    item={item}
-                    onIncrease={aumentarQuantidade}
-                    onDecrease={diminuirQuantidade}
-                    onRemove={removerDoCarrinho}
-                  />
-                ))}
-              </div>
-            )}
-          </Card>
-        </div>
-
-        {/* Coluna Direita - Resumo e Pagamento */}
-        <div className="pdv__right">
-          <Card>
-            <div className="pdv__summary">
-              <div className="pdv__summary-item">
-                <span>SUBTOTAL</span>
-                <span className="pdv__summary-value">
-                  R$ {subtotal.toFixed(2)}
-                </span>
-              </div>
-              <div className="pdv__summary-item">
-                <span>Total Recebido</span>
-                <span
-                  className="pdv__summary-value"
-                  style={{
-                    color:
-                      totalRecebido > 0 ? 'var(--color-success)' : 'inherit',
-                  }}
-                >
-                  R$ {totalRecebido.toFixed(2)}
-                </span>
-              </div>
-              <div className="pdv__summary-item">
-                <span>Troco</span>
-                <span
-                  className="pdv__summary-value"
-                  style={{
-                    color: troco < 0 ? 'var(--color-error)' : 'inherit',
-                  }}
-                >
-                  R$ {troco.toFixed(2)}
-                </span>
-              </div>
-            </div>
-          </Card>
-
-          <Card>
-            <Subtitle>Pagamento</Subtitle>
-            <SelectField
-              id="metodo"
-              value={paymentMethod}
-              onChange={(e) => setPaymentMethod(e.target.value)}
-              options={PAYMENT_METHODS}
-            />
-            <div style={{ display: 'flex', gap: 'var(--space-sm)', marginTop: 'var(--space-md)' }}>
-              <FormField
-                id="valor"
-                type="number"
-                value={paymentValue}
-                onChange={(e) => setPaymentValue(e.target.value)}
-                placeholder="Valor"
-                step="0.01"
-              />
-              <Button onClick={adicionarPagamento}>+</Button>
-            </div>
-
-            {pagamentos.length > 0 && (
-              <div style={{ marginTop: 'var(--space-md)' }}>
-                <p style={{ margin: 0, fontSize: '0.85rem', fontWeight: 600 }}>
-                  Pagamentos:
-                </p>
-                {pagamentos.map((p, i) => (
-                  <p
-                    key={i}
-                    style={{
-                      margin: '4px 0',
-                      fontSize: '0.85rem',
-                      color: 'var(--color-text)',
-                    }}
-                  >
-                    {p.tipo}: R$ {p.valor.toFixed(2)}
-                  </p>
-                ))}
-              </div>
-            )}
-          </Card>
-
-          <Button
-            onClick={finalizarVenda}
-            style={{
-              width: '100%',
-              background: 'var(--color-success)',
-              color: 'white',
-              padding: 'var(--space-lg)',
-              fontSize: '1.1rem',
-              marginTop: 'var(--space-md)',
-            }}
-          >
-            Finalizar Venda
-          </Button>
-        </div>
+        <PdvRightPanel
+          subtotal={subtotal}
+          totalRecebido={totalRecebido}
+          troco={troco}
+          paymentMethod={paymentMethod}
+          setPaymentMethod={setPaymentMethod}
+          paymentValue={paymentValue}
+          setPaymentValue={setPaymentValue}
+          pagamentos={pagamentos}
+          onAddPayment={adicionarPagamento}
+          onFinalize={finalizarVenda}
+        />
       </div>
     </main>
   )

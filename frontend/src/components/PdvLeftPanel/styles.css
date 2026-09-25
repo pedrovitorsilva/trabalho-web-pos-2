@@ -1,0 +1,80 @@
+.pdv-left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.pdv-left-panel__tabs {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.pdv-left-panel__tabs button {
+  flex: 1;
+  opacity: 0.5;
+}
+
+.pdv-left-panel__tabs button.active {
+  opacity: 1;
+}
+
+.pdv-left-panel__search {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.pdv-left-panel__selected {
+  margin: 8px 0 0 0;
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.pdv-left-panel__mode-toggle {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.pdv-left-panel__mode-toggle button {
+  flex: 1;
+  opacity: 0.5;
+}
+
+.pdv-left-panel__mode-toggle button.active {
+  opacity: 1;
+}
+
+.pdv-left-panel__barcode {
+  margin-top: var(--space-md);
+}
+
+.pdv-left-panel__grid {
+  margin-top: var(--space-md);
+}
+
+.pdv-left-panel__points {
+  background: var(--color-primary);
+  padding: var(--space-md);
+  border-radius: var(--radius);
+  color: #FFFFFF;
+}
+
+.pdv-left-panel__points-label {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pdv-left-panel__points-value {
+  margin: 8px 0 0 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.pdv-left-panel__points-range {
+  margin: 4px 0 0 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.85);
+}

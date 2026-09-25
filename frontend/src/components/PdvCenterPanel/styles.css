@@ -1,0 +1,10 @@
+.pdv-center-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.pdv-center-panel__items {
+  display: flex;
+  flex-direction: column;
+}

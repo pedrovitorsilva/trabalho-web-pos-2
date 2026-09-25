@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import { listProdutos, createProduto } from '../services/api'
-import Titulo from '../components/Titulo'
+import Title from '../components/Title'
 import FeedbackMessage from '../components/FeedbackMessage'
-import ProdutoForm from '../components/ProdutoForm'
-import Lista from '../components/Lista'
-import ProdutoImage from '../components/ProdutoImage'
+import ProductForm from '../components/ProductForm'
+import List from '../components/List'
+import ProductImage from '../components/ProductImage'
 
 const brl = (v) => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 
-export default function Produtos() {
+export default function Products() {
   const [produtos, setProdutos] = useState([])
   const [listLoading, setListLoading] = useState(true)
   const [listError, setListError] = useState(null)
@@ -19,8 +19,8 @@ export default function Produtos() {
     {
       key: 'imagem',
       header: 'Imagem',
-      render: (p) => <ProdutoImage codigo_barras={p.codigo_barras} />,
-      cellClassName: 'lista__cell--compact',
+      render: (p) => <ProductImage codigo_barras={p.codigo_barras} />,
+      cellClassName: 'list__cell--compact',
     },
     { key: 'nome', header: 'Nome' },
     { key: 'codigo_barras', header: 'Código de Barras' },
@@ -28,7 +28,7 @@ export default function Produtos() {
       key: 'preco_venda',
       header: 'Preço de Venda',
       render: (p) => brl(p.preco_venda),
-      cellClassName: 'lista__cell--highlight',
+      cellClassName: 'list__cell--highlight',
     },
     { key: 'qtd_atual', header: 'Estoque' },
   ]
@@ -66,17 +66,17 @@ export default function Produtos() {
 
   return (
     <main>
-      <Titulo>Mercadinho São Miguel - Produtos</Titulo>
+      <Title>Mercadinho São Miguel - Produtos</Title>
       <FeedbackMessage type={feedback?.type} message={feedback?.message} />
-      <ProdutoForm onSubmit={handleCreate} submitting={submitting} />
-      <Lista
+      <ProductForm onSubmit={handleCreate} submitting={submitting} />
+      <List
         header="Produtos cadastrados"
         columns={columns}
         items={produtos}
         loading={listLoading}
         error={listError}
         emptyMessage="Nenhum produto cadastrado ainda."
-        rowClassName={(p) => (p.qtd_atual < p.qtd_minima ? 'lista__row--warning' : undefined)}
+        rowClassName={(p) => (p.qtd_atual < p.qtd_minima ? 'list__row--warning' : undefined)}
       />
     </main>
   )

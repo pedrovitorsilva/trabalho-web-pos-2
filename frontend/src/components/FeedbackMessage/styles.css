@@ -1,0 +1,20 @@
+.feedback {
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid;
+  border-left-width: 4px;
+  border-radius: var(--radius);
+  font-weight: 600;
+}
+
+/* alface (#89C742) é claro demais para texto; texto em espinafre, alface na borda/fundo */
+.feedback--success {
+  border-color: var(--color-success);
+  background: #F1F8E8;
+  color: var(--color-heading);
+}
+
+.feedback--error {
+  border-color: var(--color-error);
+  background: #FDECEA;
+  color: var(--color-error);
+}

@@ -1,0 +1,32 @@
+:root {
+  --color-primary: #F0572B;   /* cenoura */
+  --color-heading: #185836;   /* espinafre */
+  --color-accent: #F1C332;    /* laranja-lima */
+  --color-success: #89C742;   /* alface */
+  --color-error: #CC1400;     /* erro, fora da paleta de alimentos */
+  --color-bg: #FFFFFF;
+  --color-bg-muted: #FFF2E1;  /* pão e trigo */
+  --color-highlight: #E6EB97; /* melão */
+  --color-text: #1A1A1A;
+  --color-border: #E0DACB;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+h1, h2, h3 { color: var(--color-heading); }
+
+:focus-visible {
+  outline: 2px solid var(--color-heading);
+  outline-offset: 2px;
+}

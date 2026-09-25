@@ -1,0 +1,20 @@
+.produto-image {
+  max-width: 80px;
+  max-height: 80px;
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+
+.produto-image__placeholder {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-muted);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  font-size: 0.75rem;
+  text-align: center;
+  padding: var(--space-xs);
+}

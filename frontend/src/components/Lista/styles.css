@@ -1,0 +1,48 @@
+.lista {
+  overflow-x: auto;
+}
+
+.lista__status {
+  margin: 0;
+  padding: var(--space-md) 0;
+  color: var(--color-text);
+}
+
+.lista__status--error {
+  color: var(--color-error);
+}
+
+.lista__table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-bg-muted);
+}
+
+.lista__table th,
+.lista__table td {
+  text-align: left;
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.lista__table th {
+  color: var(--color-heading);
+}
+
+.lista__table tbody tr:hover {
+  background: var(--color-highlight);
+}
+
+.lista__cell--highlight {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.lista__cell--compact {
+  padding: var(--space-xs) !important;
+  text-align: center;
+}
+
+.lista__row--warning td:first-child {
+  border-left: 4px solid var(--color-accent);
+}

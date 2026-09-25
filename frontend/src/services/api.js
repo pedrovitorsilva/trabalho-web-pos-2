@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export const API_BASE = {
   produtos: 'http://localhost:7001',
   pessoas: 'http://localhost:7002',
@@ -10,4 +12,16 @@ export async function fetchJson(url, options = {}) {
     throw new Error(`HTTP error! status: ${response.status}`)
   }
   return response.json()
+}
+
+const produtosApi = axios.create({ baseURL: API_BASE.produtos })
+
+export async function listProdutos() {
+  const { data } = await produtosApi.get('/produtos')
+  return data
+}
+
+export async function createProduto(payload) {
+  const { data } = await produtosApi.post('/produtos', payload)
+  return data.produto
 }

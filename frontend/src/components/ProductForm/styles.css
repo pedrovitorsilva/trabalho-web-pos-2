@@ -1,0 +1,19 @@
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-lg);
+}
+
+.product-form__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+}
+
+.product-form__submit {
+  align-self: flex-start;
+}

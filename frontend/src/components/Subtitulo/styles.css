@@ -1,0 +1,6 @@
+.subtitulo {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+}

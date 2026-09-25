@@ -1,0 +1,64 @@
+.produto-list {
+  overflow-x: auto;
+}
+
+.produto-list__status--error {
+  color: var(--color-error);
+}
+
+.produto-list__table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-bg-muted);
+}
+
+.produto-list__table th,
+.produto-list__table td {
+  text-align: left;
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.produto-list__table th {
+  color: var(--color-heading);
+}
+
+.produto-list__table tbody tr:hover {
+  background: var(--color-highlight);
+}
+
+.produto-list__price {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* estoque abaixo do mínimo: laranja-lima só como realce de borda */
+.produto-list__row--low td:first-child {
+  border-left: 4px solid var(--color-accent);
+}
+
+.produto-list__image-cell {
+  text-align: center;
+  padding: var(--space-xs) !important;
+}
+
+.produto-image {
+  max-width: 80px;
+  max-height: 80px;
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+
+.produto-image__placeholder {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-muted);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  font-size: 0.75rem;
+  text-align: center;
+  padding: var(--space-xs);
+}

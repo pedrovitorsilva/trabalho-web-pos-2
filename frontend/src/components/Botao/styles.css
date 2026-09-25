@@ -1,0 +1,23 @@
+.botao {
+  font: inherit;
+  font-weight: 700;
+  padding: var(--space-sm) var(--space-lg);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.botao--primary {
+  background: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.botao--primary:hover:not(:disabled) {
+  filter: brightness(0.92);
+}
+
+.botao:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

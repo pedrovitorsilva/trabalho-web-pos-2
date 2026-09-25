@@ -4,7 +4,7 @@
 
 | Porta (host) | Serviço         | Descrição                                    |
 |--------------|------------------|---------------------------------------------|
-| `3000`       | `miguel-frontend`| Frontend estático (nginx)                   |
+| `3000`       | `miguel-frontend`| Frontend (React + Vite, dev server)         |
 | `7001`       | `miguel-produtos`| API de produtos, entradas e campanhas       |
 | `7002`       | `miguel-pessoas` | API de pessoas (clientes e funcionários)    |
 | `7003`       | `miguel-vendas`  | API de vendas e resgates de pontos          |

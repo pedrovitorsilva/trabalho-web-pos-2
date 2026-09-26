@@ -150,19 +150,39 @@ export default function PersonForm({ person, onSubmit, onCancel, submitting }) {
                     required
                     disabled={submitting}
                 />
-                {field("nome", "Nome", { required: true })}
-                {field("cpf", "CPF", { inputMode: "numeric", maxLength: 14 })}
-                {field("telefone", "Telefone", { inputMode: "tel", maxLength: 16 })}
-                {values.tipo_pessoa === "Funcionario" && field("cargo", "Cargo")}
+                {field("nome", "Nome", {
+                    required: true,
+                    placeholder: "Ex.: Maria da Silva",
+                })}
+                {field("cpf", "CPF", {
+                    inputMode: "numeric",
+                    maxLength: 14,
+                    placeholder: "Ex.: 123.456.789-09",
+                })}
+                {field("telefone", "Telefone", {
+                    inputMode: "tel",
+                    maxLength: 16,
+                    placeholder: "Ex.: (11) 99999-9999",
+                })}
+                {values.tipo_pessoa === "Funcionario" && field("cargo", "Cargo", {
+                    placeholder: "Ex.: Vendedor",
+                })}
                 {values.tipo_pessoa === "Cliente" && (
                     <>
                         {field("pontos_acumulados", "Pontos acumulados", {
                             type: "number",
                             min: "0",
                             step: "1",
+                            placeholder: "Ex.: 250",
                         })}
-                        {field("cidade", "Cidade")}
-                        {field("uf", "UF", { maxLength: 2, autoCapitalize: "characters" })}
+                        {field("cidade", "Cidade", {
+                            placeholder: "Ex.: São Paulo",
+                        })}
+                        {field("uf", "UF", {
+                            maxLength: 2,
+                            autoCapitalize: "characters",
+                            placeholder: "Ex.: SP",
+                        })}
                     </>
                 )}
             </div>

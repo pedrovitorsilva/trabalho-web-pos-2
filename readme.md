@@ -1,4 +1,4 @@
-# Docker — Mercadinho São Miguel
+# Docker — Mercadinho São Miguel - Como subir
 
 ## Portas
 

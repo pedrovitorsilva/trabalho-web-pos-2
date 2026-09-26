@@ -14,6 +14,8 @@ export default function PdvLeftPanel({
   cpfSearch,
   setCpfSearch,
   buscarClientePorCpf,
+  useClienteList,
+  setUseClienteList,
   clienteSelectId,
   setClienteSelectId,
   selecionarClientePorNome,
@@ -36,27 +38,27 @@ export default function PdvLeftPanel({
         <div className="pdv-left-panel__tabs">
           <Button
             variant="primary"
-            onClick={() => setClienteSelectId('')}
-            className={!clienteSelectId ? 'active' : ''}
+            onClick={() => setUseClienteList(false)}
+            className={!useClienteList ? "active" : ""}
           >
             CPF
           </Button>
           <Button
             variant="primary"
-            onClick={() => setCpfSearch('')}
-            className={clienteSelectId ? 'active' : ''}
+            onClick={() => setUseClienteList(true)}
+            className={useClienteList ? "active" : ""}
           >
             Lista
           </Button>
         </div>
 
-        {!clienteSelectId ? (
+        {!useClienteList ? (
           <div className="pdv-left-panel__search">
             <FormField
               id="cpf"
               value={cpfSearch}
               onChange={(e) => setCpfSearch(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && buscarClientePorCpf()}
+              onKeyDown={(e) => e.key === "Enter" && buscarClientePorCpf()}
               placeholder="CPF"
             />
             <Button onClick={buscarClientePorCpf}>🔍</Button>
@@ -68,17 +70,17 @@ export default function PdvLeftPanel({
                 clientes.map((c) => (
                   <button
                     key={c._id}
-                    className={`pdv-left-panel__client-item ${clienteSelecionado?._id === c._id ? 'selected' : ''}`}
+                    className={`pdv-left-panel__client-item ${clienteSelecionado?._id === c._id ? "selected" : ""}`}
                     onClick={() => selecionarClientePorNome(c._id)}
                   >
                     <div style={{ fontWeight: 600 }}>{c.nome}</div>
-                    <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>
-                      {c.cpf || 'sem CPF'}
+                    <div style={{ fontSize: "0.75rem", opacity: 0.8 }}>
+                      {c.cpf || "sem CPF"}
                     </div>
                   </button>
                 ))
               ) : (
-                <p style={{ textAlign: 'center', color: 'var(--color-text)' }}>
+                <p style={{ textAlign: "center", color: "var(--color-text)" }}>
                   Nenhum cliente cadastrado
                 </p>
               )}
@@ -111,14 +113,14 @@ export default function PdvLeftPanel({
           <Button
             variant="primary"
             onClick={() => setShowGrade(false)}
-            className={!showGrade ? 'active' : ''}
+            className={!showGrade ? "active" : ""}
           >
             📱 Código
           </Button>
           <Button
             variant="primary"
             onClick={() => setShowGrade(true)}
-            className={showGrade ? 'active' : ''}
+            className={showGrade ? "active" : ""}
           >
             📋 Grade
           </Button>
@@ -131,7 +133,7 @@ export default function PdvLeftPanel({
             value={codigoBarrasInput}
             onChange={(e) => setCodigoBarrasInput(e.target.value)}
             onKeyDown={(e) =>
-              e.key === 'Enter' && buscarPorBarcode(codigoBarrasInput)
+              e.key === "Enter" && buscarPorBarcode(codigoBarrasInput)
             }
             placeholder="Código de Barras"
             className="pdv-left-panel__barcode"
@@ -157,11 +159,9 @@ export default function PdvLeftPanel({
           <p className="pdv-left-panel__points-value">
             {pontosGanhos.toFixed(2)}
           </p>
-          <p className="pdv-left-panel__points-range">
-            {getDayRangeLabel()}
-          </p>
+          <p className="pdv-left-panel__points-range">{getDayRangeLabel()}</p>
         </div>
       </Card>
     </div>
-  )
+  );
 }

@@ -47,7 +47,7 @@ export default function PersonList({
             key: "acoes",
             header: "Ações",
             render: (person) => (
-                <div className="person-list__actions">
+                <div className="list__actions">
                     <Button
                         type="button"
                         variant="secondary"

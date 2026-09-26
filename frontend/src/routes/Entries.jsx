@@ -51,12 +51,12 @@ export default function Entries() {
       key: 'acoes',
       header: 'Ações',
       render: (e) => (
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Button variant="secondary" className="button--sm" onClick={() => handleEdit(e)}>
+        <div className="list__actions">
+          <Button type="button" variant="secondary" className="button--sm" onClick={() => handleEdit(e)}>
             Editar
           </Button>
-          <Button variant="danger" className="button--sm" onClick={() => handleDelete(e)}>
-            Deletar
+          <Button type="button" variant="danger" className="button--sm" onClick={() => handleDelete(e)}>
+            Excluir
           </Button>
         </div>
       ),

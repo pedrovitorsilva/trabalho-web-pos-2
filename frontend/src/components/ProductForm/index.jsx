@@ -86,28 +86,45 @@ export default function ProductForm({ onSubmit, submitting }) {
     <form className="product-form" onSubmit={handleSubmit} noValidate>
       <Subtitle>Novo produto</Subtitle>
       <div className="product-form__grid">
-        {field("nome", "Nome", { required: true })}
-        {field("codigo_barras", "Código de barras", { required: true })}
+        {field("nome", "Nome", { required: true, placeholder: "Ex.: ARROZ" })}
+        {field("codigo_barras", "Código de barras", {
+          required: true,
+          placeholder: "Ex.: 7893500020158",
+        })}
         {field("preco_venda", "Preço de venda (R$)", {
           required: true,
           type: "number",
           step: "0.01",
           min: "0",
+          placeholder: "Ex.: 9.50",
         })}
         {field("preco_custo", "Preço de custo (R$)", {
           required: true,
           type: "number",
           step: "0.01",
           min: "0",
+          placeholder: "Ex.: 7.00",
         })}
-        {field("qtd_atual", "Quantidade atual", { type: "number", min: "0" })}
-        {field("qtd_minima", "Quantidade mínima", { type: "number", min: "0" })}
+        {field("qtd_atual", "Quantidade atual", {
+          type: "number",
+          min: "0",
+          placeholder: "Ex.: 100",
+        })}
+        {field("qtd_minima", "Quantidade mínima", {
+          type: "number",
+          min: "0",
+          placeholder: "Ex.: 20",
+        })}
         {field("id_fornecedor", "ID do fornecedor", {
           type: "number",
           min: "0",
+          placeholder: "Ex.: 21",
         })}
       </div>
-      {field("descricao", "Descrição", { as: "textarea" })}
+      {field("descricao", "Descrição", {
+        as: "textarea",
+        placeholder: "Ex.: Pacote 5kg",
+      })}
       <Button
         className="product-form__submit"
         type="submit"

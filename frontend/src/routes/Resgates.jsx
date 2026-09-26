@@ -218,7 +218,7 @@ export default function Resgates() {
       key: 'actions',
       header: 'Ações',
       render: (resgate) => (
-        <div className="resgates__actions">
+        <div className="list__actions">
           {editingId === resgate._id ? (
             <>
               <Button

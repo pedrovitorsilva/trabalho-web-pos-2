@@ -1,0 +1,33 @@
+.banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  background: var(--color-primary);
+  color: #FFFFFF;
+  padding: var(--space-lg) var(--space-lg);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-lg);
+}
+
+.banner__icon {
+  font-size: 1.75rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.banner__content {
+  flex: 1;
+}
+
+.banner__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.banner__subtitle {
+  margin: 4px 0 0 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+}

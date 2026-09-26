@@ -25,6 +25,10 @@ export default function Header() {
               </Link>
             </li>
 
+              <Link to="/pdv" className="header__nav-link">
+                PDV
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

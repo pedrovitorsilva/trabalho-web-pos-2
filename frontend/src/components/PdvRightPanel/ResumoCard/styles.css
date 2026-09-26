@@ -1,0 +1,28 @@
+.pdv-right-panel__summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.pdv-right-panel__summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pdv-right-panel__summary-item:last-child {
+  border-bottom: none;
+}
+
+.pdv-right-panel__summary-item > span:first-child {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.pdv-right-panel__summary-value {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-heading);
+}

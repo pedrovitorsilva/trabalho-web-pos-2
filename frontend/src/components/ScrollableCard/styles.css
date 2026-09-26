@@ -1,0 +1,27 @@
+.scrollable-card {
+  display: flex;
+}
+
+.scrollable-card__content {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 400px;
+  padding-right: var(--space-sm);
+}
+
+.scrollable-card__content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollable-card__content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollable-card__content::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+.scrollable-card__content::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text);
+}

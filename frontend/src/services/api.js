@@ -37,6 +37,17 @@ export async function createResgate(payload) {
   const { data } = await resgateApi.post('/resgate', payload)
   return data.resgate
 }
+
+export async function updateResgate(id, payload) {
+  const { data } = await resgateApi.patch(`/resgate/${id}`, payload)
+  return data.resgate
+}
+
+export async function deleteResgate(id) {
+  const { data } = await resgateApi.delete(`/resgate/${id}`)
+  return data.resgate
+}
+
 export async function listEntradas() {
   const { data } = await produtosApi.get('/entrada')
   return data

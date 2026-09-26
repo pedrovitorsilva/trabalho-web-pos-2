@@ -524,7 +524,11 @@ const schemas = {
     properties: {
       _id: { type: "string" },
       data_resgate: { type: "string", format: "date-time" },
-      id_cliente: { type: "number" },
+      id_cliente: {
+        oneOf: [{ type: "number" }, { type: "string" }],
+        description: "ID numérico legado ou _id MongoDB do cliente",
+      },
+      nome_cliente: { type: "string" },
       pontos_usados_total: { type: "number" },
       itens_resgatados: {
         type: "array",

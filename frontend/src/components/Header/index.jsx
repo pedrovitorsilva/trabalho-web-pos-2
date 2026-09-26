@@ -9,7 +9,7 @@ export default function Header() {
         <Title className="header__title">Mercadinho São Miguel</Title>
         <nav className="header__nav">
           <ul className="header__nav-list">
-            <li> 
+            <li>
               <Link to="/" className="header__nav-link">
                 Home
               </Link>
@@ -17,6 +17,11 @@ export default function Header() {
             <li>
               <Link to="/produtos" className="header__nav-link">
                 Produtos
+              </Link>
+            </li>
+            <li>
+              <Link to="/pessoas" className="header__nav-link">
+                Pessoas
               </Link>
             </li>
             <li>

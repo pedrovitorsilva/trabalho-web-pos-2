@@ -11,7 +11,52 @@
 | `7004`       | `miguel-mongodb` | MongoDB                                     |
 | `7005`       | `miguel-docs`    | Documentação Swagger (Swagger UI)           |
 
-## Criar a rede e subir os containers
+## Contexto do Projeto
+O projeto consiste em um sistema de mercado, que possui dados dos funcionários e clientes, além de dados dos produtos, vendas e estoque.
+
+Além disso, o mercado possui um sistema de fidelização por pontos, que podem ser resgatados por produtos quando houver campanhas que possuam tais produtos.
+
+O banco possui a seguinte estrutura:
+
+![Modelagem do Banco](modelagem.png)
+
+## Estrutura de Pastas
+
+```
+sao_miguel/
+├── docker-compose.yml   # Orquestração de todos os serviços
+├── Dockerfile           # Imagem base usada pelas APIs
+├── init-db.js           # Seed inicial do MongoDB
+├── package.json         # Dependências compartilhadas das APIs
+├── modelagem.png        # Diagrama do banco
+│
+├── produtos/            # API de produtos, entradas e campanhas
+├── pessoas/             # API de pessoas (clientes e funcionários)
+├── vendas/              # API de vendas
+├── resgate/             # API de resgates de pontos
+│   ├── server.js        # Ponto de entrada do serviço
+│   ├── config/          # Conexão com o banco (dbConnect.js)
+│   ├── models/          # Schemas do Mongoose
+│   ├── routes/          # Definição das rotas
+│   ├── controllers/     # Tratamento das requisições
+│   └── services/        # Regras de negócio
+│
+├── docs/                # Swagger UI (openapi.js + server.js)
+│
+└── frontend/            # React + Vite
+    ├── index.html
+    ├── vite.config.js
+    └── src/
+        ├── main.jsx, App.jsx
+        ├── routes/      # Páginas (Pdv, Products, Entries, Pessoas, Resgates)
+        ├── components/  # Componentes reutilizáveis (um por pasta)
+        ├── services/    # Cliente HTTP das APIs (api.js)
+        └── utils/       # Funções auxiliares (format.js)
+```
+
+As APIs `produtos`, `pessoas`, `vendas` e `resgate` seguem a mesma estrutura interna (`server.js`, `config/`, `models/`, `routes/`, `controllers/`, `services/`).
+
+## Criar a rede e subir os containers (deve estar no diretorio raiz do projeto)
 
 ```bash
 docker network create rede-mercadinho

@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
-import Title from '../Title'
-import './styles.css'
+import { Link } from "react-router-dom";
+import Title from "../Title";
+import "./styles.css";
 
 export default function Header() {
   return (
@@ -36,5 +36,5 @@ export default function Header() {
         </nav>
       </div>
     </header>
-  )
+  );
 }

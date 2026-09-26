@@ -14,7 +14,11 @@ async function getResgate(id) {
 }
 
 async function getResgatesPorCliente(idCliente) {
-  const resgates = await Resgate.find({ id_cliente: Number(idCliente) }).sort({
+  const idNumerico = Number(idCliente);
+  const filtro = Number.isFinite(idNumerico) && idCliente.trim() !== ""
+    ? { $or: [{ id_cliente: idNumerico }, { id_cliente: idCliente }] }
+    : { id_cliente: idCliente };
+  const resgates = await Resgate.find(filtro).sort({
     data_resgate: -1,
   });
   return resgates;

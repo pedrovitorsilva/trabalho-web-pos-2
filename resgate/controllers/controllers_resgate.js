@@ -34,7 +34,9 @@ async function getResgateController(req, res) {
 async function getResgatesPorClienteController(req, res) {
   try {
     const idCliente = req.params.idCliente;
-    if (!idCliente || Number.isNaN(Number(idCliente))) {
+    const idNumericoValido = Number.isFinite(Number(idCliente));
+    const idMongoValido = mongoose.Types.ObjectId.isValid(idCliente);
+    if (!idCliente || (!idNumericoValido && !idMongoValido)) {
       return res.status(422).json({ error: "Cliente inválido" });
     }
     const resgates = await getResgatesPorCliente(idCliente);

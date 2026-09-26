@@ -33,8 +33,11 @@ const resgateSchema = new mongoose.Schema(
       default: Date.now,
     },
     id_cliente: {
-      type: Number,
+      type: mongoose.Schema.Types.Mixed,
       required: true,
+    },
+    nome_cliente: {
+      type: String,
     },
     pontos_usados_total: {
       type: Number,

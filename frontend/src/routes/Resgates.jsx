@@ -5,8 +5,10 @@ import FormField from '../components/FormField'
 import Button from '../components/Button'
 import FeedbackMessage from '../components/FeedbackMessage'
 import List from '../components/List'
+import SelectField from '../components/SelectField'
 import {
   listResgates,
+  listClientes,
   createResgate,
   updateResgate,
   deleteResgate,
@@ -37,7 +39,8 @@ const PROMOCOES_INICIAIS = [
 ]
 
 export default function Resgates() {
-  const [idCliente, setIdCliente] = useState('')
+  const [clientes, setClientes] = useState([])
+  const [clienteSelecionado, setClienteSelecionado] = useState('')
   const [codigo, setCodigo] = useState('')
   const [quantidade, setQuantidade] = useState('1')
   const [feedback, setFeedback] = useState(null)
@@ -49,11 +52,24 @@ export default function Resgates() {
 
   const promocoesDisponiveis = useMemo(() => PROMOCOES_INICIAIS, [])
 
+  function nomeDoCliente(resgate) {
+    if (resgate.nome_cliente) return resgate.nome_cliente
+
+    const cliente = clientes.find(
+      (item) => item._id === String(resgate.id_cliente),
+    )
+    return cliente?.nome || `Cliente #${resgate.id_cliente}`
+  }
+
   useEffect(() => {
     async function carregarResgates() {
       try {
-        const dados = await listResgates()
+        const [dados, dadosClientes] = await Promise.all([
+          listResgates(),
+          listClientes(),
+        ])
         setResgates(dados)
+        setClientes(dadosClientes)
       } catch (error) {
         setFeedback({
           type: 'error',
@@ -70,8 +86,8 @@ export default function Resgates() {
   async function handleSubmit(event) {
     event.preventDefault()
 
-    if (!idCliente.trim()) {
-      return setFeedback({ type: 'error', message: 'Informe o ID do cliente.' })
+    if (!clienteSelecionado) {
+      return setFeedback({ type: 'error', message: 'Selecione um cliente.' })
     }
 
     if (!codigo.trim()) {
@@ -92,8 +108,14 @@ export default function Resgates() {
     }
 
     try {
+      const cliente = clientes.find((item) => item._id === clienteSelecionado)
+      if (!cliente) {
+        return setFeedback({ type: 'error', message: 'Cliente não encontrado.' })
+      }
+
       const payload = {
-        id_cliente: Number(idCliente),
+        id_cliente: cliente._id,
+        nome_cliente: cliente.nome,
         pontos_usados_total: promocaoEncontrada.pontos * quantidadeNumero,
         itens_resgatados: [
           {
@@ -111,9 +133,9 @@ export default function Resgates() {
       setResgates(dadosAtualizados)
       setFeedback({
         type: 'success',
-        message: `Resgate realizado com sucesso para o cliente ${idCliente}.`,
+        message: `Resgate realizado com sucesso para ${cliente.nome}.`,
       })
-      setIdCliente('')
+      setClienteSelecionado('')
       setCodigo('')
       setQuantidade('1')
     } catch (error) {
@@ -152,7 +174,7 @@ export default function Resgates() {
   }
 
   async function excluirResgate(resgate) {
-    if (!window.confirm(`Excluir o resgate do cliente ${resgate.id_cliente}?`)) return
+    if (!window.confirm(`Excluir o resgate de ${nomeDoCliente(resgate)}?`)) return
 
     setSavingId(resgate._id)
     try {
@@ -170,14 +192,18 @@ export default function Resgates() {
   }
 
   const columns = [
-    { key: 'id_cliente', header: 'Cliente' },
+    {
+      key: 'nome_cliente',
+      header: 'Cliente',
+      render: (resgate) => nomeDoCliente(resgate),
+    },
     { key: 'pontos_usados_total', header: 'Pontos usados' },
     {
       key: 'status',
       header: 'Status',
       render: (resgate) => editingId === resgate._id ? (
         <select
-          aria-label={`Status do resgate do cliente ${resgate.id_cliente}`}
+          aria-label={`Status do resgate do cliente ${nomeDoCliente(resgate)}`}
           value={editedStatus}
           onChange={(event) => setEditedStatus(event.target.value)}
           disabled={savingId === resgate._id}
@@ -248,13 +274,16 @@ export default function Resgates() {
       <form onSubmit={handleSubmit} noValidate>
         <Subtitle>Fazer resgate</Subtitle>
 
-        <FormField
+        <SelectField
           id="resgate-cliente"
-          label="ID do cliente"
-          type="number"
-          value={idCliente}
-          onChange={(event) => setIdCliente(event.target.value)}
-          placeholder="Ex: 101"
+          label="Cliente"
+          value={clienteSelecionado}
+          onChange={(event) => setClienteSelecionado(event.target.value)}
+          options={clientes.map((cliente) => ({
+            value: cliente._id,
+            label: cliente.cpf ? `${cliente.nome} - ${cliente.cpf}` : cliente.nome,
+          }))}
+          required
         />
 
         <FormField

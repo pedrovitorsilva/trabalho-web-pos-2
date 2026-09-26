@@ -26,6 +26,24 @@ export async function createProduto(payload) {
   return data.produto
 }
 
+export async function listEntradas() {
+  const { data } = await produtosApi.get('/entrada')
+  return data
+}
+
+export async function createEntrada(payload) {
+  const { data } = await produtosApi.post('/entrada', payload)
+  return data.entrada
+}
+
+export async function updateEntrada(id, payload) {
+  const { data } = await produtosApi.patch(`/entrada/${id}`, payload)
+  return data.entrada
+}
+
+export async function deleteEntrada(id) {
+  const { data } = await produtosApi.delete(`/entrada/${id}`)
+  return data.entrada
 export async function getProdutoByBarcode(codigo_barras) {
   const { data } = await produtosApi.get(`/produtos/barcode/${codigo_barras}`);
   return data

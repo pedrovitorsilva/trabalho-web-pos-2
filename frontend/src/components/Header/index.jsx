@@ -20,6 +20,11 @@ export default function Header() {
               </Link>
             </li>
             <li>
+              <Link to="/entradas" className="header__nav-link">
+                Entradas
+              </Link>
+            </li>
+
               <Link to="/pdv" className="header__nav-link">
                 PDV
               </Link>

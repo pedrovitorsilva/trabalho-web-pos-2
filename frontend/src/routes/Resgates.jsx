@@ -5,7 +5,12 @@ import FormField from '../components/FormField'
 import Button from '../components/Button'
 import FeedbackMessage from '../components/FeedbackMessage'
 import List from '../components/List'
-import { listResgates, createResgate } from '../services/api'
+import {
+  listResgates,
+  createResgate,
+  updateResgate,
+  deleteResgate,
+} from '../services/api'
 
 const PROMOCOES_INICIAIS = [
   {
@@ -38,6 +43,9 @@ export default function Resgates() {
   const [feedback, setFeedback] = useState(null)
   const [resgates, setResgates] = useState([])
   const [loading, setLoading] = useState(true)
+  const [editingId, setEditingId] = useState(null)
+  const [editedStatus, setEditedStatus] = useState('')
+  const [savingId, setSavingId] = useState(null)
 
   const promocoesDisponiveis = useMemo(() => PROMOCOES_INICIAIS, [])
 
@@ -116,10 +124,120 @@ export default function Resgates() {
     }
   }
 
+  function iniciarEdicao(resgate) {
+    setEditingId(resgate._id)
+    setEditedStatus(resgate.status)
+    setFeedback(null)
+  }
+
+  async function salvarEdicao(id) {
+    setSavingId(id)
+    try {
+      const resgateAtualizado = await updateResgate(id, { status: editedStatus })
+      setResgates((atuais) =>
+        atuais.map((resgate) =>
+          resgate._id === id ? resgateAtualizado : resgate,
+        ),
+      )
+      setEditingId(null)
+      setFeedback({ type: 'success', message: 'Resgate atualizado com sucesso.' })
+    } catch (error) {
+      setFeedback({
+        type: 'error',
+        message: error.response?.data?.error || 'Não foi possível atualizar o resgate.',
+      })
+    } finally {
+      setSavingId(null)
+    }
+  }
+
+  async function excluirResgate(resgate) {
+    if (!window.confirm(`Excluir o resgate do cliente ${resgate.id_cliente}?`)) return
+
+    setSavingId(resgate._id)
+    try {
+      await deleteResgate(resgate._id)
+      setResgates((atuais) => atuais.filter((item) => item._id !== resgate._id))
+      setFeedback({ type: 'success', message: 'Resgate excluído com sucesso.' })
+    } catch (error) {
+      setFeedback({
+        type: 'error',
+        message: error.response?.data?.error || 'Não foi possível excluir o resgate.',
+      })
+    } finally {
+      setSavingId(null)
+    }
+  }
+
   const columns = [
     { key: 'id_cliente', header: 'Cliente' },
     { key: 'pontos_usados_total', header: 'Pontos usados' },
-    { key: 'status', header: 'Status' },
+    {
+      key: 'status',
+      header: 'Status',
+      render: (resgate) => editingId === resgate._id ? (
+        <select
+          aria-label={`Status do resgate do cliente ${resgate.id_cliente}`}
+          value={editedStatus}
+          onChange={(event) => setEditedStatus(event.target.value)}
+          disabled={savingId === resgate._id}
+        >
+          <option value="resgatado">Resgatado</option>
+          <option value="cancelado">Cancelado</option>
+          <option value="entregue">Entregue</option>
+        </select>
+      ) : resgate.status,
+    },
+    {
+      key: 'actions',
+      header: 'Ações',
+      render: (resgate) => (
+        <div className="resgates__actions">
+          {editingId === resgate._id ? (
+            <>
+              <Button
+                className="button--sm"
+                type="button"
+                disabled={savingId === resgate._id}
+                onClick={() => salvarEdicao(resgate._id)}
+              >
+                Salvar
+              </Button>
+              <Button
+                className="button--sm"
+                variant="outline"
+                type="button"
+                disabled={savingId === resgate._id}
+                onClick={() => setEditingId(null)}
+              >
+                Cancelar
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                className="button--sm"
+                variant="secondary"
+                type="button"
+                disabled={savingId === resgate._id}
+                onClick={() => iniciarEdicao(resgate)}
+              >
+                Editar
+              </Button>
+              <Button
+                className="button--sm"
+                variant="danger"
+                type="button"
+                disabled={savingId === resgate._id}
+                onClick={() => excluirResgate(resgate)}
+              >
+                Excluir
+              </Button>
+            </>
+          )}
+        </div>
+      ),
+    },
   ]
 
   return (

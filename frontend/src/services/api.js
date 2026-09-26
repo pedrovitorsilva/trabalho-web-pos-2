@@ -36,4 +36,53 @@ export async function listResgates() {
 export async function createResgate(payload) {
   const { data } = await resgateApi.post('/resgate', payload)
   return data.resgate
+export async function listEntradas() {
+  const { data } = await produtosApi.get('/entrada')
+  return data
+}
+
+export async function createEntrada(payload) {
+  const { data } = await produtosApi.post('/entrada', payload)
+  return data.entrada
+}
+
+export async function updateEntrada(id, payload) {
+  const { data } = await produtosApi.patch(`/entrada/${id}`, payload)
+  return data.entrada
+}
+
+export async function deleteEntrada(id) {
+  const { data } = await produtosApi.delete(`/entrada/${id}`)
+  return data.entrada
+export async function getProdutoByBarcode(codigo_barras) {
+  const { data } = await produtosApi.get(`/produtos/barcode/${codigo_barras}`);
+  return data
+}
+
+const pessoasApi = axios.create({ baseURL: API_BASE.pessoas })
+const vendasApi = axios.create({ baseURL: API_BASE.vendas })
+
+export async function listClientes() {
+  const { data } = await pessoasApi.get('/pessoa/clientes')
+  return data
+}
+
+export async function getPessoaByCpf(cpf) {
+  const { data } = await pessoasApi.get(`/pessoa/cpf/${cpf}`)
+  return data
+}
+
+export async function listFuncionarios() {
+  const { data } = await pessoasApi.get('/pessoa/funcionarios')
+  return data
+}
+
+export async function updatePessoaPontos(id, pontos_acumulados) {
+  const { data } = await pessoasApi.patch(`/pessoa/${id}`, { pontos_acumulados })
+  return data.pessoa
+}
+
+export async function createVenda(payload) {
+  const { data } = await vendasApi.post('/vendas', payload)
+  return data.venda
 }

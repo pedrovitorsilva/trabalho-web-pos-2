@@ -2,18 +2,60 @@
   font: inherit;
   font-weight: 700;
   padding: var(--space-sm) var(--space-lg);
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--radius);
   cursor: pointer;
-  transition: filter 0.2s ease;
+  transition: filter 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Principal: Cenoura */
 .button--primary {
   background: var(--color-primary);
   color: #FFFFFF;
 }
 
-.button--primary:hover:not(:disabled) {
+/* Secundário / Editar: Espinafre */
+.button--secondary {
+  background: var(--color-heading);
+  color: #FFFFFF;
+}
+
+/* Destaque / Adicionar item: Laranja-lima */
+.button--accent {
+  background: var(--color-accent);
+  color: var(--color-text);
+}
+
+/* Deletar / Perigo: Erro */
+.button--danger {
+  background: var(--color-error);
+  color: #FFFFFF;
+}
+
+/* Outline / Cancelar */
+.button--outline {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.button--outline:hover:not(:disabled) {
+  background: var(--color-bg-muted);
+  border-color: var(--color-heading);
+}
+
+.button--sm {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 0.875rem;
+}
+
+.button--primary:hover:not(:disabled),
+.button--secondary:hover:not(:disabled),
+.button--accent:hover:not(:disabled),
+.button--danger:hover:not(:disabled) {
   filter: brightness(0.92);
 }
 

@@ -26,6 +26,14 @@ async function getPessoaPorNome(nome) {
   return pessoas;
 }
 
+async function getPessoaPorCpf(cpf) {
+  const pessoa = await Pessoa.findOne({ cpf });
+  if (!pessoa) {
+    throw new Error("Pessoa não encontrada");
+  }
+  return pessoa;
+}
+
 // Filtra por "Cliente" ou "Funcionario" — usado pelo dashboard e pelas
 // ferramentas MCP para separar os dois publicos.
 async function getPessoasPorTipo(tipo) {
@@ -62,6 +70,7 @@ export {
   getAllPessoas,
   getPessoaPorId,
   getPessoaPorNome,
+  getPessoaPorCpf,
   getPessoasPorTipo,
   inserePessoa,
   modificaPessoa,

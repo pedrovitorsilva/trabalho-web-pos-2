@@ -1,7 +1,4 @@
-import Card from '../Card'
-import Subtitle from '../Subtitle'
-import EmptyState from '../EmptyState'
-import CartItem from '../CartItem'
+import CarrinhoCard from './CarrinhoCard'
 import './styles.css'
 
 export default function PdvCenterPanel({
@@ -12,24 +9,12 @@ export default function PdvCenterPanel({
 }) {
   return (
     <div className="pdv-center-panel">
-      <Card>
-        <Subtitle>Lista de Produtos</Subtitle>
-        {carrinho.length === 0 ? (
-          <EmptyState icon="🛒" title="Carrinho vazio" />
-        ) : (
-          <div className="pdv-center-panel__items">
-            {carrinho.map((item) => (
-              <CartItem
-                key={item.id_produto}
-                item={item}
-                onIncrease={onIncrease}
-                onDecrease={onDecrease}
-                onRemove={onRemove}
-              />
-            ))}
-          </div>
-        )}
-      </Card>
+      <CarrinhoCard
+        carrinho={carrinho}
+        onIncrease={onIncrease}
+        onDecrease={onDecrease}
+        onRemove={onRemove}
+      />
     </div>
   )
 }

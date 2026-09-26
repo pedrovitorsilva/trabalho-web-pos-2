@@ -44,7 +44,6 @@ export default function Pdv() {
   const [operadorId, setOperadorId] = useState('')
   const [cpfSearch, setCpfSearch] = useState('')
   const [useClienteList, setUseClienteList] = useState(false)
-  const [clienteSelectId, setClienteSelectId] = useState('')
   const [codigoBarrasInput, setCodigoBarrasInput] = useState('')
   const [showGrade, setShowGrade] = useState(false)
   const [carrinho, setCarrinho] = useState([])
@@ -336,8 +335,6 @@ export default function Pdv() {
           buscarClientePorCpf={buscarClientePorCpf}
           useClienteList={useClienteList}
           setUseClienteList={setUseClienteList}
-          clienteSelectId={clienteSelectId}
-          setClienteSelectId={setClienteSelectId}
           selecionarClientePorNome={selecionarClientePorNome}
           operadorId={operadorId}
           setOperadorId={setOperadorId}

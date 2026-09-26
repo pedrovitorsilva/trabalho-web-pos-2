@@ -27,7 +27,7 @@ export async function createProduto(payload) {
 }
 
 export async function getProdutoByBarcode(codigo_barras) {
-  const { data } = await produtosApi.get(`/codigo/${codigo_barras}`)
+  const { data } = await produtosApi.get(`/produtos/barcode/${codigo_barras}`);
   return data
 }
 

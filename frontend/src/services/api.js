@@ -25,3 +25,36 @@ export async function createProduto(payload) {
   const { data } = await produtosApi.post('/produtos', payload)
   return data.produto
 }
+
+export async function getProdutoByBarcode(codigo_barras) {
+  const { data } = await produtosApi.get(`/produtos/barcode/${codigo_barras}`);
+  return data
+}
+
+const pessoasApi = axios.create({ baseURL: API_BASE.pessoas })
+const vendasApi = axios.create({ baseURL: API_BASE.vendas })
+
+export async function listClientes() {
+  const { data } = await pessoasApi.get('/pessoa/clientes')
+  return data
+}
+
+export async function getPessoaByCpf(cpf) {
+  const { data } = await pessoasApi.get(`/pessoa/cpf/${cpf}`)
+  return data
+}
+
+export async function listFuncionarios() {
+  const { data } = await pessoasApi.get('/pessoa/funcionarios')
+  return data
+}
+
+export async function updatePessoaPontos(id, pontos_acumulados) {
+  const { data } = await pessoasApi.patch(`/pessoa/${id}`, { pontos_acumulados })
+  return data.pessoa
+}
+
+export async function createVenda(payload) {
+  const { data } = await vendasApi.post('/vendas', payload)
+  return data.venda
+}

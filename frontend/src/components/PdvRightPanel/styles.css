@@ -1,0 +1,14 @@
+.pdv-right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.pdv-right-panel__finalize-btn {
+  width: 100%;
+  background: var(--color-success);
+  color: white;
+  padding: var(--space-lg);
+  font-size: 1.1rem;
+  margin-top: var(--space-md);
+}

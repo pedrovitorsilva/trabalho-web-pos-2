@@ -1,0 +1,50 @@
+.pdv-right-panel__payment-input {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.pdv-right-panel__payment-input button {
+  width: auto;
+}
+
+.pdv-right-panel__payments-list {
+  margin-top: var(--space-md);
+}
+
+.pdv-right-panel__payments-label {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.pdv-right-panel__payment-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.pdv-right-panel__payment-item {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text);
+  flex: 1;
+}
+
+.pdv-right-panel__payment-remove {
+  width: 28px !important;
+  height: 28px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-error) !important;
+  color: white !important;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+}

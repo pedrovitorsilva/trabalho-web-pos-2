@@ -2,6 +2,7 @@ import {
   getAllPessoas,
   getPessoaPorId,
   getPessoaPorNome,
+  getPessoaPorCpf,
   getPessoasPorTipo,
   inserePessoa,
   modificaPessoa,
@@ -63,6 +64,19 @@ async function getPessoaPorNomeController(req, res) {
   }
 }
 
+async function getPessoaPorCpfController(req, res) {
+  try {
+    const cpf = req.params.cpf;
+    if (!cpf || cpf.trim() === "") {
+      return res.status(422).json({ error: "CPF inválido" });
+    }
+    const pessoa = await getPessoaPorCpf(cpf);
+    res.status(200).json(pessoa);
+  } catch (error) {
+    res.status(404).json({ error: error.message });
+  }
+}
+
 async function postPessoa(req, res) {
   try {
     const dados = req.body;
@@ -115,6 +129,7 @@ export {
   getFuncionarios,
   getPessoa,
   getPessoaPorNomeController,
+  getPessoaPorCpfController,
   postPessoa,
   patchPessoa,
   deletePessoa,

@@ -115,17 +115,14 @@ export default function Pdv() {
       return
     }
     try {
-      console.log('Buscando código de barras:', codigo)
       const produto = await getProdutoByBarcode(codigo)
-      console.log('Produto encontrado:', produto)
       adicionarAoCarrinho(produto)
       setCodigoBarrasInput('')
       setFeedback(null)
     } catch (err) {
-      console.error('Erro ao buscar código de barras:', err)
       setFeedback({
         type: 'error',
-        message: `Produto não encontrado. Erro: ${err.message || 'Verifique o código e tente novamente.'}`,
+        message: 'Produto não encontrado. Verifique o código e tente novamente.',
       })
     }
   }

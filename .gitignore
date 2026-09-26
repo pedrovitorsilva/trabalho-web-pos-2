@@ -4,3 +4,4 @@ frontend/package-lock.json
 frontend/.env
 frontend/.env.local
 frontend/.env.*.local
+node_modules

@@ -1,5 +1,5 @@
 .list {
-  overflow-x: auto;
+  overflow: hidden;
 }
 
 .list__status {
@@ -20,7 +20,7 @@
 
 .list__table th,
 .list__table td {
-  text-align: left;
+  text-align: center;
   padding: var(--space-sm) var(--space-md);
   border-bottom: 1px solid var(--color-border);
 }

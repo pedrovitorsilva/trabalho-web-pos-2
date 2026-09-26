@@ -12,6 +12,7 @@ export default function Header() {
             <li><Link to="/" className="header__nav-link"> Home </Link> </li>
             <li><Link to="/pdv" className="header__nav-link">PDV</Link></li>
             <li><Link to="/produtos" className="header__nav-link">Produtos</Link></li>
+            <li><Link to="/pessoas" className="header__nav-link">Pessoas</Link></li>
             <li><Link to="/resgates" className="header__nav-link">Resgates</Link></li>
             <li><Link to="/entradas" className="header__nav-link">Entradas</Link></li>
           </ul>

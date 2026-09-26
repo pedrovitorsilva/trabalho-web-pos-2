@@ -65,6 +65,31 @@ export async function getProdutoByBarcode(codigo_barras) {
 const pessoasApi = axios.create({ baseURL: API_BASE.pessoas })
 const vendasApi = axios.create({ baseURL: API_BASE.vendas })
 
+export async function listPessoas() {
+  const { data } = await pessoasApi.get('/pessoa')
+  return data
+}
+
+export async function getPessoaById(id) {
+  const { data } = await pessoasApi.get(`/pessoa/${id}`)
+  return data
+}
+
+export async function createPessoa(payload) {
+  const { data } = await pessoasApi.post('/pessoa', payload)
+  return data.pessoa
+}
+
+export async function updatePessoa(id, payload) {
+  const { data } = await pessoasApi.patch(`/pessoa/${id}`, payload)
+  return data.pessoa
+}
+
+export async function deletePessoa(id) {
+  const { data } = await pessoasApi.delete(`/pessoa/${id}`)
+  return data.pessoa
+}
+
 export async function listClientes() {
   const { data } = await pessoasApi.get('/pessoa/clientes')
   return data

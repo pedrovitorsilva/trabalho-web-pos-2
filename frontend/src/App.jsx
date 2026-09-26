@@ -5,6 +5,7 @@ import Products from './routes/Products'
 import Resgates from './routes/Resgates'
 import Entries from './routes/Entries'
 import Pdv from './routes/Pdv'
+import Pessoas from './routes/Pessoas'
 import './App.css'
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/resgates" element={<Resgates />} />
         <Route path="/entradas" element={<Entries />} />
         <Route path="/pdv" element={<Pdv />} />
+        <Route path="/pessoas" element={<Pessoas />} />
       </Routes>
     </>
   )

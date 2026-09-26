@@ -36,6 +36,7 @@ export async function listResgates() {
 export async function createResgate(payload) {
   const { data } = await resgateApi.post('/resgate', payload)
   return data.resgate
+}
 export async function listEntradas() {
   const { data } = await produtosApi.get('/entrada')
   return data
@@ -54,6 +55,8 @@ export async function updateEntrada(id, payload) {
 export async function deleteEntrada(id) {
   const { data } = await produtosApi.delete(`/entrada/${id}`)
   return data.entrada
+}
+
 export async function getProdutoByBarcode(codigo_barras) {
   const { data } = await produtosApi.get(`/produtos/barcode/${codigo_barras}`);
   return data

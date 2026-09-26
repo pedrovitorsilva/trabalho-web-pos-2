@@ -10,7 +10,7 @@ export default function Header() {
         <nav className="header__nav">
           <ul className="header__nav-list">
             <li>
-              <Link to="/pdv" className="header__nav-link">
+              <Link to="/" className="header__nav-link">
                 PDV
               </Link>
             </li>

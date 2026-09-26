@@ -22,6 +22,7 @@ export default function Header() {
             <li>
               <Link to="/resgates" className="header__nav-link">
                 Resgates
+              </Link>
               <Link to="/entradas" className="header__nav-link">
                 Entradas
               </Link>

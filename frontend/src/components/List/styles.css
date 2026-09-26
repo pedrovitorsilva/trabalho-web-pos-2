@@ -43,6 +43,12 @@
   text-align: center;
 }
 
+.resgates__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
 .list__row--warning td:first-child {
   border-left: 4px solid var(--color-accent);
 }

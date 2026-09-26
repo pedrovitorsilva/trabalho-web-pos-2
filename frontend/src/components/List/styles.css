@@ -43,9 +43,10 @@
   text-align: center;
 }
 
-.resgates__actions {
+.list__actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-xs);
 }
 

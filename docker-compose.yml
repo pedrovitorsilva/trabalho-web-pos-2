@@ -1,6 +1,6 @@
 services:
   miguel-mongodb:
-    image: mongo:latest
+    image: mongo:7.0
     container_name: miguel-mongodb
     hostname: miguel-mongodb
     restart: always
@@ -83,6 +83,24 @@ services:
     networks:
       - rede-mercadinho
 
+  miguel-resgate:
+    build: .
+    container_name: miguel-resgate
+    hostname: miguel-resgate
+    restart: always
+    volumes:
+      - ./resgate:/servico
+    command: node server.js
+    ports:
+      - "7006:8000"
+    depends_on:
+      - miguel-mongodb
+    environment:
+      - MONGODB_CONNECTION=mongodb://miguel-mongodb:27017/mercadinho
+      - NOME_SERVICO=miguel-resgate
+    networks:
+      - rede-mercadinho
+
   miguel-frontend:
     image: node:20-alpine
     container_name: miguel-frontend
@@ -102,4 +120,4 @@ volumes:
 
 networks:
   rede-mercadinho:
-    external: true
+    driver: bridge

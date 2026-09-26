@@ -1,0 +1,17 @@
+{
+  "name": "miguel-resgates",
+  "version": "1.0.0",
+  "description": "Microsservico de Resgates de promocao do Mercadinho Sao Miguel",
+  "private": true,
+  "type": "module",
+  "main": "server.js",
+  "license": "ISC",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  }
+}

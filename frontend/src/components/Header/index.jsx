@@ -10,8 +10,8 @@ export default function Header() {
         <nav className="header__nav">
           <ul className="header__nav-list">
             <li>
-              <Link to="/" className="header__nav-link">
-                Home
+              <Link to="/pdv" className="header__nav-link">
+                PDV
               </Link>
             </li>
             <li>
@@ -28,13 +28,10 @@ export default function Header() {
               <Link to="/resgates" className="header__nav-link">
                 Resgates
               </Link>
-              <Link to="/entradas" className="header__nav-link">
-                Entradas
-              </Link>
             </li>
             <li>
-              <Link to="/pdv" className="header__nav-link">
-                PDV
+              <Link to="/entradas" className="header__nav-link">
+                Entradas
               </Link>
             </li>
           </ul>
